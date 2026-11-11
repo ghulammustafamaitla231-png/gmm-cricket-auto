@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: '*/30 * * * *'
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -14,7 +16,7 @@ jobs:
       - run: python main.py
       - run: |
           git config user.name "GMM"
-          git config user.email "gmm@gmm.com"
+          git config user.email "gmm@example.com"
           git add index.html
-          git commit -m "auto update" || true
+          git commit -m "Auto update" || echo "No changes"
           git push
