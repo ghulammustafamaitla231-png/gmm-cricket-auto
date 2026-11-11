@@ -1,22 +1,18 @@
 name: GMM Auto
 on:
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
-permissions:
-  contents: write
+  schedule:
+    - cron: '0 * * * *'
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      BLOG_URL: https://gmmcricket.blogspot.com
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: python main.py
-      - run: |
-          git config user.name "GMM"
-          git config user.email "gmm@example.com"
-          git add index.html
-          git commit -m "Auto update" || echo "No changes"
-          git push
+      - name: Check Blog
+        run: |
+          echo "Checking $BLOG_URL"
+          curl -L "$BLOG_URL" -o blog.html
+          echo "Blog OK"
+          ls -lh
