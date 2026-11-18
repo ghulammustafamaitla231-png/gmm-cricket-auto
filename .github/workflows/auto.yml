@@ -14,9 +14,10 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install
-        run: pip install requests
+        run: pip install requests feedparser
       - name: Run Bot
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
           BLOGGER_TOKEN: ${{ secrets.BLOGGER_TOKEN }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
@@ -24,8 +25,8 @@ jobs:
         run: python main.py
       - name: Save
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add blog.html last_run.txt
-          git commit -m "auto update" || echo "no change"
-          git push origin main || echo "push failed"
+          git config user.name "bot"
+          git config user.email "bot@bot.com"
+          git add last_run.txt || true
+          git commit -m "update" || echo "nothing"
+          git push || true
