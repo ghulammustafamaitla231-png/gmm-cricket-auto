@@ -51,7 +51,7 @@ for news in news_list:
     prompt = f"Is cricket news ko GMM Cricket ke liye 300 lafzon ki asaan Urdu (Roman) me khabar banao, dilchasp headline ke sath. News: {news['title']} - {news['summary']}"
     try:
         r = requests.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}",
+            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI}",
             json={"contents": [{"parts": [{"text": prompt}]}]},
             timeout=60
         )
